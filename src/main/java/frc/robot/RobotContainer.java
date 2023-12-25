@@ -2,7 +2,6 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -16,7 +15,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.PS4Controller;
 
-import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -40,6 +38,8 @@ public class RobotContainer {
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
     private final JoystickButton dampen = new JoystickButton(driver, PS4Controller.Button.kR1.value);
+
+    private final JoystickButton DynamicLock = new JoystickButton(driver, PS4Controller.Button.kSquare.value);
 
     private final Trigger forwardHold = new Trigger(() -> (driver.getRawAxis(PS4Controller.Axis.kL2.value) > 0.2));
     private final Trigger backwardHold = new Trigger(() -> (driver.getRawAxis(PS4Controller.Axis.kL2.value) > 0.2));
@@ -88,6 +88,20 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+
+    //Heading lock bindings
+        forwardHold.onTrue(
+            new InstantCommand(() -> States.driveState = States.DriveStates.forwardHold)).onFalse(
+            new InstantCommand(() -> States.driveState = States.DriveStates.standard)
+            );
+        backwardHold.onTrue(
+            new InstantCommand(() -> States.driveState = States.DriveStates.backwardHold)).onFalse(
+            new InstantCommand(() -> States.driveState = States.DriveStates.standard)
+            );
+        DynamicLock.onTrue(
+            new InstantCommand(() -> States.driveState = States.DriveStates.DynamicLock)).onFalse(
+            new InstantCommand(() -> States.driveState = States.DriveStates.standard)
+            );
     }
 
     /**
