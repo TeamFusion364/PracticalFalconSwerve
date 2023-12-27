@@ -76,6 +76,13 @@ public final class Constants {
         public static final double driveKD = 0.0;
         public static final double driveKF = 0.0;
 
+         /* Heading PID Values */
+        public static final double HeadingKP = 4;
+        public static final double HeadingKI = 0.0;
+        public static final double HeadingKD = 0;
+        public static final double HeadingTolerence = 0;
+
+
         /* Drive Motor Characterization Values 
          * Divide SYSID values by 12 to convert from volts to percent output for CTRE */
         public static final double driveKS = (0.32 / 12); //TODO: This must be tuned to specific robot
