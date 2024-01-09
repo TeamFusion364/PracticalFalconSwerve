@@ -25,14 +25,14 @@ public class SwerveCommand extends Command {
     private PIDController rotationController;
     
 
-    public SwerveCommand(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup, BooleanSupplier dampen) {
+    public SwerveCommand(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup, BooleanSupplier dampen, DoubleSupplier dynamicHeadingSup) {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);
 
         //TODO: Tune heading PID
-        rotationController = new PIDController(0.01, 0, 0 );
+        rotationController = new PIDController(Constants.Swerve.HeadingKP, Constants.Swerve.HeadingKI, Constants.Swerve.HeadingKD );
         rotationController.enableContinuousInput(-Math.PI, Math.PI);
-        rotationController.setTolerance(3);
+        rotationController.setTolerance(Constants.Swerve.HeadingTolerence);
 
         this.translationSup = translationSup;
         this.strafeSup = strafeSup;
@@ -56,27 +56,32 @@ public class SwerveCommand extends Command {
             case forwardHold:
 
                 //heading lock - forward
-               rotationVal = rotationController.calculate(s_Swerve.getYaw().getRadians(), Units.degreesToRadians(90));
+               rotationVal = rotationController.calculate(s_Swerve.getYaw().getRadians(), Units.degreesToRadians(0));
+               System.out.println("HEADING LOCK");
                 break;
             case backwardHold:
 
                 //heading lock - backward
-                rotationVal = rotationController.calculate(s_Swerve.getYaw().getRadians(), Units.degreesToRadians(270));
+                rotationVal = rotationController.calculate(s_Swerve.getYaw().getRadians(), Units.degreesToRadians(180));
+                System.out.println("HEADING LOCK");
                 break;
             case leftHold:
 
                 //heading lock - left
-                rotationVal = rotationController.calculate(s_Swerve.getYaw().getRadians(), Units.degreesToRadians(180));
+                rotationVal = rotationController.calculate(s_Swerve.getYaw().getRadians(), Units.degreesToRadians(90));
+                System.out.println("HEADING LOCK");
                 break;
             case rightHold:
 
                 //heading lock - right
-                rotationVal = rotationController.calculate(s_Swerve.getYaw().getRadians(), Units.degreesToRadians(0));
+                rotationVal = rotationController.calculate(s_Swerve.getYaw().getRadians(), Units.degreesToRadians(270));
+                System.out.println("HEADING LOCK");
                 break;
             case DynamicLock:
         
                 //heading lock - dynamic
                 rotationVal = rotationController.calculate(s_Swerve.getYaw().getRadians(), Units.degreesToRadians(dynamicHeading));
+                System.out.println("HEADING LOCK");
                 break;
             case standard:
             
