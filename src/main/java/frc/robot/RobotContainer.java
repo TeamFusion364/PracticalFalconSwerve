@@ -46,7 +46,6 @@ public class RobotContainer {
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
-    private final PoseEstimator s_PoseEstimator = new PoseEstimator();
 
     /* AutoChooser */
     private final SendableChooser<Command> autoChooser;
@@ -88,7 +87,7 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         /* Driver Buttons */
-        zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
 
     //Heading lock bindings
         forwardHold.onTrue(

@@ -56,31 +56,31 @@ public class SwerveCommand extends Command {
             case forwardHold:
 
                 //heading lock - forward
-               rotationVal = rotationController.calculate(s_Swerve.getYaw().getRadians(), Units.degreesToRadians(0));
+               rotationVal = rotationController.calculate(s_Swerve.getHeading().getRadians(), Units.degreesToRadians(0));
                System.out.println("HEADING LOCK");
                 break;
             case backwardHold:
 
                 //heading lock - backward
-                rotationVal = rotationController.calculate(s_Swerve.getYaw().getRadians(), Units.degreesToRadians(180));
+                rotationVal = rotationController.calculate(s_Swerve.getHeading().getRadians(), Units.degreesToRadians(180));
                 System.out.println("HEADING LOCK");
                 break;
             case leftHold:
 
                 //heading lock - left
-                rotationVal = rotationController.calculate(s_Swerve.getYaw().getRadians(), Units.degreesToRadians(90));
+                rotationVal = rotationController.calculate(s_Swerve.getHeading().getRadians(), Units.degreesToRadians(90));
                 System.out.println("HEADING LOCK");
                 break;
             case rightHold:
 
                 //heading lock - right
-                rotationVal = rotationController.calculate(s_Swerve.getYaw().getRadians(), Units.degreesToRadians(270));
+                rotationVal = rotationController.calculate(s_Swerve.getHeading().getRadians(), Units.degreesToRadians(270));
                 System.out.println("HEADING LOCK");
                 break;
             case DynamicLock:
         
                 //heading lock - dynamic
-                rotationVal = rotationController.calculate(s_Swerve.getYaw().getRadians(), Units.degreesToRadians(dynamicHeading));
+                rotationVal = rotationController.calculate(s_Swerve.getHeading().getRadians(), Units.degreesToRadians(dynamicHeading));
                 System.out.println("HEADING LOCK");
                 break;
             case standard:
