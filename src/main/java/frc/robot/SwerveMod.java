@@ -10,16 +10,21 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import frc.lib.LazyCANCoder;
+import frc.lib.LazyTalonFX;
 import frc.lib.math.Conversions;
 import frc.lib.util.SwerveModuleConstants;
 
 public class SwerveMod {
+    private CTREConfigs ctreConfigs;
+
     public int moduleNumber;
     private Rotation2d angleOffset;
-
+    
     private TalonFX mAngleMotor;
     private TalonFX mDriveMotor;
     private CANcoder angleEncoder;
+
 
     private final SimpleMotorFeedforward driveFeedForward = new SimpleMotorFeedforward(Constants.Swerve.driveKS, Constants.Swerve.driveKV, Constants.Swerve.driveKA);
 
@@ -31,22 +36,20 @@ public class SwerveMod {
     private final PositionVoltage anglePosition = new PositionVoltage(0);
 
     public SwerveMod(int moduleNumber, SwerveModuleConstants moduleConstants){
+        this.ctreConfigs = Robot.ctreConfigs;
+
         this.moduleNumber = moduleNumber;
         this.angleOffset = moduleConstants.angleOffset;
         
         /* Angle Encoder Config */
-        angleEncoder = new CANcoder(moduleConstants.cancoderID);
-        angleEncoder.getConfigurator().apply(Robot.ctreConfigs.swerveCANcoderConfig);
+        angleEncoder = new LazyCANCoder(moduleConstants.cancoderID, ctreConfigs.swerveCANcoderConfig);
 
         /* Angle Motor Config */
-        mAngleMotor = new TalonFX(moduleConstants.angleMotorID);
-        mAngleMotor.getConfigurator().apply(Robot.ctreConfigs.swerveAngleFXConfig);
+        mAngleMotor = new LazyTalonFX(moduleConstants.angleMotorID, ctreConfigs.swerveAngleFXConfig, false);
         resetToAbsolute();
 
         /* Drive Motor Config */
-        mDriveMotor = new TalonFX(moduleConstants.driveMotorID);
-        mDriveMotor.getConfigurator().apply(Robot.ctreConfigs.swerveDriveFXConfig);
-        mDriveMotor.getConfigurator().setPosition(0.0);
+        mDriveMotor = new LazyTalonFX(moduleConstants.driveMotorID, ctreConfigs.swerveDriveFXConfig, false);
     }
 
     public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop){

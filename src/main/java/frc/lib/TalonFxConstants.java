@@ -1,29 +1,32 @@
 package frc.lib;
 
-import com.ctre.phoenix.motorcontrol.InvertType;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
-public class TalonFxConstants {
+/**
+ * Organizes the various major CTREConfigs of a TalonFX motor for easier and bloatless initialization through LazyTalonFX
+ */
+public class TalonFXConstants {
     public final int deviceNumber;
     public final TalonFXConfiguration allConfigs;
-    public final NeutralMode neutralMode;
-    public final InvertType invertType;
+    public final NeutralModeValue neutralModeVal;
+    public final InvertedValue invertTypeVal;
     public final boolean slowStatusFrame;    
     
     /**
      * Constants to be used with LazyTalonFX Util
      * @param deviceNumber
      * @param allConfigs
-     * @param neutralMode
-     * @param invertType
-     * @param slowStatusFrames
+     * @param neutralModeVal
+     * @param invertTypeVal
+     * @param slowStatusFrame
      */
-    public TalonFxConstants(int deviceNumber, TalonFXConfiguration allConfigs, NeutralMode neutralMode, InvertType invertType, boolean slowStatusFrame) {
+    public TalonFXConstants(int deviceNumber, TalonFXConfiguration allConfigs, NeutralModeValue neutralModeVal, InvertedValue invertTypeVal, boolean slowStatusFrame) {
         this.deviceNumber = deviceNumber;
         this.allConfigs = allConfigs;
-        this.neutralMode = neutralMode;
-        this.invertType = invertType;
+        this.neutralModeVal = neutralModeVal;
+        this.invertTypeVal = invertTypeVal;
         this.slowStatusFrame = slowStatusFrame;
     }
 }

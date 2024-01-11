@@ -1,10 +1,8 @@
 package frc.lib;
 
-import com.ctre.phoenix.motorcontrol.InvertType;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.StatusFrame;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.TalonFXConfigurator;
+import com.ctre.phoenix6.hardware.TalonFX;
 
 /**
  * Thin Falcon wrapper to make setup easier.
@@ -12,43 +10,32 @@ import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 public class LazyTalonFX extends TalonFX {
 
     /**
-     * Config using individual parameters.
+     * Config using individual parameters. This typically should only be used for Swerve modules as they have their own SwerveModuleConstants file.
      * @param deviceNumber
-     * @param allConfigs
-     * @param neutralMode
-     * @param anglemotorinvert
+     * @param allConfigs CTREConfig object
      * @param slowStatusFrame
      */
-    public LazyTalonFX(int deviceNumber, TalonFXConfiguration allConfigs, NeutralMode neutralMode, boolean anglemotorinvert, boolean slowStatusFrame){
+    public LazyTalonFX(int deviceNumber, TalonFXConfiguration allConfigs, boolean slowStatusFrame){
         super(deviceNumber, "canivore");
-        super.configFactoryDefault();
-        super.configAllSettings(allConfigs);
-        super.setNeutralMode(neutralMode);
-        super.setInverted(anglemotorinvert);
-        super.setSelectedSensorPosition(0);
+        TalonFXConfigurator configurator = super.getConfigurator();
+        configurator.apply(allConfigs);
 
         if (slowStatusFrame){
-            super.setStatusFramePeriod(StatusFrame.Status_1_General, 255, 30);
-            super.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 255, 30);
+            super.getPosition().setUpdateFrequency(255, 30);
         }
     }
 
     /**
-     * Config using talonFxConstants.
-     * @param talonFxConstants
+     * Config using individual parameters. This should only be used for Swerve modules as they have their own SwerveModuleConstants file.
+     * @param talonFXConstants Contains various motor initialization vars 
+     * @param slowStatusFrame
      */
-    public LazyTalonFX(TalonFxConstants talonFxConstants){
-        super(talonFxConstants.deviceNumber, "canivore");
-        super.configFactoryDefault();
-        super.configAllSettings(talonFxConstants.allConfigs);
-        super.setNeutralMode(talonFxConstants.neutralMode);
-        super.setInverted(talonFxConstants.invertType);
-        super.setSelectedSensorPosition(0);
+    public LazyTalonFX(TalonFXConstants talonFXConstants){
+        super(talonFXConstants.deviceNumber, "canivore");
+        super.getConfigurator().apply(talonFXConstants.allConfigs);
 
-        if (talonFxConstants.slowStatusFrame){
-            super.setStatusFramePeriod(StatusFrame.Status_1_General, 255, 30);
-            super.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 255, 30);
+        if (talonFXConstants.slowStatusFrame){
+            super.getPosition().setUpdateFrequency(255, 30);
         }
     }
-    
 }
