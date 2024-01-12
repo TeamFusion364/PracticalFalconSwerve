@@ -29,20 +29,20 @@ public class RobotContainer {
     private final Joystick driver = new Joystick(0);
 
    /* Driver Controls */
-	private final int translationAxis = PS4Controller.Axis.kLeftY.value;
-	private final int strafeAxis = PS4Controller.Axis.kLeftX.value;
-	private final int rotationAxis = PS4Controller.Axis.kRightX.value;
+	private final int translationAxis = XboxController.Axis.kLeftY.value;
+	private final int strafeAxis = XboxController.Axis.kLeftX.value;
+	private final int rotationAxis = XboxController.Axis.kRightX.value;
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
-    private final JoystickButton dampen = new JoystickButton(driver, PS4Controller.Button.kR1.value);
+    private final JoystickButton dampen = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
 
-    private final JoystickButton DynamicLock = new JoystickButton(driver, PS4Controller.Button.kSquare.value);
+    private final JoystickButton DynamicLock = new JoystickButton(driver, XboxController.Button.kX.value);
 
-    private final Trigger forwardHold = new Trigger(() -> (driver.getRawAxis(PS4Controller.Axis.kL2.value) > 0.2));
-    private final Trigger backwardHold = new Trigger(() -> (driver.getRawAxis(PS4Controller.Axis.kR2.value) > 0.2));
+    private final Trigger forwardHold = new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0.6));
+    private final Trigger backwardHold = new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0.6));
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
@@ -93,15 +93,15 @@ public class RobotContainer {
         forwardHold.onTrue(
             new InstantCommand(() -> States.driveState = States.DriveStates.forwardHold)).onFalse(
             new InstantCommand(() -> States.driveState = States.DriveStates.standard)
-            );
+        );
         backwardHold.onTrue(
             new InstantCommand(() -> States.driveState = States.DriveStates.backwardHold)).onFalse(
             new InstantCommand(() -> States.driveState = States.DriveStates.standard)
-            );
+        );
         DynamicLock.onTrue(
             new InstantCommand(() -> States.driveState = States.DriveStates.DynamicLock)).onFalse(
             new InstantCommand(() -> States.driveState = States.DriveStates.standard)
-            );
+        );
     }
 
     /**

@@ -31,7 +31,7 @@ public class LazyTalonFX extends TalonFX {
      * @param slowStatusFrame
      */
     public LazyTalonFX(TalonFXConstants talonFXConstants){
-        super(talonFXConstants.deviceNumber);
+        super(talonFXConstants.deviceNumber, "canivore");
         super.getConfigurator().apply(talonFXConstants.allConfigs);
 
         if (talonFXConstants.slowStatusFrame){
