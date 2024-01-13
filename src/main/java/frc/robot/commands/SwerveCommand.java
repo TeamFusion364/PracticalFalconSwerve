@@ -63,25 +63,21 @@ public class SwerveCommand extends Command {
 
                 //heading lock - backward
                 rotationVal = rotationController.calculate(s_Swerve.getHeading().getRadians(), Units.degreesToRadians(180));
-                System.out.println("HEADING LOCK");
                 break;
             case leftHold:
 
                 //heading lock - left
                 rotationVal = rotationController.calculate(s_Swerve.getHeading().getRadians(), Units.degreesToRadians(90));
-                System.out.println("HEADING LOCK");
                 break;
             case rightHold:
 
                 //heading lock - right
                 rotationVal = rotationController.calculate(s_Swerve.getHeading().getRadians(), Units.degreesToRadians(270));
-                System.out.println("HEADING LOCK");
                 break;
             case DynamicLock:
         
                 //heading lock - dynamic
                 rotationVal = rotationController.calculate(s_Swerve.getHeading().getRadians(), Units.degreesToRadians(dynamicHeading));
-                System.out.println("HEADING LOCK");
                 break;
             case standard:
             

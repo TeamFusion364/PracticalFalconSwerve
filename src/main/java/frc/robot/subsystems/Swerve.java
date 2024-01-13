@@ -119,7 +119,7 @@ public class Swerve extends SubsystemBase {
     }
 
     public void resetOdometry(Pose2d pose) {
-        swerveOdometry.resetPosition(getHeading(), getModulePositions(), pose);
+        swerveOdometry.resetPosition(getGyroYaw(), getModulePositions(), pose); // First used to be getHeading()
     }
 
     public SwerveModuleState[] getModuleStates(){
@@ -172,7 +172,7 @@ public class Swerve extends SubsystemBase {
 
     @Override
     public void periodic(){
-        swerveOdometry.update(getHeading(), getModulePositions());  
+        swerveOdometry.update(getGyroYaw(), getModulePositions()); // First used to be getHeading(), causing issues. What happened here is the heading value (derived from SwerveOdometry) was being used to update the heading value itself, meaning no gyro inputs actually made it into the Odometry. 
         field.setRobotPose(getPose());
 
         Logger.recordOutput("Mystates", getModuleStates());
