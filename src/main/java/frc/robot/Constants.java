@@ -157,9 +157,16 @@ public final class Constants {
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
 
+    public static final class Vision {
+        public static final String leftLLName = "left";
+        public static final String rightLLName = "right";
+    }
+
     public static final class PoseEstimator {
         public static final Matrix<N3,N1> stateStdDevs = VecBuilder.fill(0.1, 0.1, 0.1);
         public static final Matrix<N3,N1> visionStdDevs = VecBuilder.fill(0.9, 0.9, 0.9);
+        // public static final Matrix<N3,N1> stateStdDevs = VecBuilder.fill(0.3, 0.3, Units.degreesToRadians(0.01));
+        // public static final Matrix<N3,N1> visionStdDevs = VecBuilder.fill(0.045, 0.045, Units.degreesToRadians(0.01));
     }
     
     

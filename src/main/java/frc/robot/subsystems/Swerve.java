@@ -29,12 +29,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Swerve extends SubsystemBase {
+    private PoseEstimator s_PoseEstimator = new PoseEstimator();
+
     public SwerveDriveOdometry swerveOdometry;
     public SwerveMod[] mSwerveMods;
     public Pigeon2 gyro;
     private Field2d field = new Field2d();
 
-    public Swerve() {
+    public Swerve(PoseEstimator s_PoseEstimator) {
+        this.s_PoseEstimator = s_PoseEstimator;
+
         gyro = new Pigeon2(Constants.Swerve.pigeonID, "canivore");
         gyro.getConfigurator().apply(new Pigeon2Configuration());
         gyro.setYaw(0);
@@ -152,16 +156,16 @@ public class Swerve extends SubsystemBase {
         return getPose().getRotation();
     }
 
+    public Rotation2d getGyroYaw() {
+        return Rotation2d.fromDegrees(gyro.getYaw().getValue());
+    }
+
     public void setHeading(Rotation2d heading){
         swerveOdometry.resetPosition(getGyroYaw(), getModulePositions(), new Pose2d(getPose().getTranslation(), heading));
     }
 
     public void zeroHeading(){
         swerveOdometry.resetPosition(getGyroYaw(), getModulePositions(), new Pose2d(getPose().getTranslation(), new Rotation2d()));
-    }
-
-    public Rotation2d getGyroYaw() {
-        return Rotation2d.fromDegrees(gyro.getYaw().getValue());
     }
 
     public void resetModulesToAbsolute(){
@@ -172,11 +176,12 @@ public class Swerve extends SubsystemBase {
 
     @Override
     public void periodic(){
-        swerveOdometry.update(getGyroYaw(), getModulePositions()); // First used to be getHeading(), causing issues. What happened here is the heading value (derived from SwerveOdometry) was being used to update the heading value itself, meaning no gyro inputs actually made it into the Odometry. 
+        swerveOdometry.update(getGyroYaw(), getModulePositions()); 
+        s_PoseEstimator.updateSwerve(getGyroYaw(), getModulePositions());
         field.setRobotPose(getPose());
 
         Logger.recordOutput("Mystates", getModuleStates());
-        Logger.recordOutput("MyPose", getPose());
+        Logger.recordOutput("rawPose", getPose());
 
         Logger.recordOutput("Get Gyro", getGyroYaw().getDegrees());
         Logger.recordOutput("Get Heading", getHeading().getDegrees());

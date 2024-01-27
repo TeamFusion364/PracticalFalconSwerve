@@ -5,6 +5,9 @@ import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -37,7 +40,7 @@ public class PoseEstimator extends SubsystemBase{
     /** Check if this returns true before using {@link #updateVision()} 
      * @return If time buffers are !null */
     public boolean readyToUpdateVision(){
-        return gyroYawBuffer.getSample(0).isPresent();
+      return gyroYawBuffer.getSample(0).isPresent();
     }
 
     /** Update estimator with Swerve States and Gyro Yaw data.
@@ -69,6 +72,7 @@ public class PoseEstimator extends SubsystemBase{
         SmartDashboard.putNumber("robotX", getEstimatedPosition().getX());
         SmartDashboard.putNumber("robotY", getEstimatedPosition().getY());
         SmartDashboard.putNumber("robotHeading", getEstimatedPosition().getRotation().getRadians());
+        Logger.recordOutput("EstimatedPose", getEstimatedPosition());
 
     }
 }
