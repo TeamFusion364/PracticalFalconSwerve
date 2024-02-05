@@ -1,7 +1,7 @@
 
-# 364 Practical Falcon Swerve - Our applied version of the 364 BaseFalconSwerve </br>
+# 364 Practical Falcon Swerve - The fundamental 364 TalonFX Swerve Base </br>
 
-**Basic Swerve Code for a Swerve Module using Falcon Motors, a CTRE CANCoder, and a CTRE Pigeon Gyro** </br>
+**Basic Swerve Code for a Swerve Module using TalonFX Motors, a CTRE CANCoder, and a CTRE Pigeon Gyro** </br>
 This code was designed with Swerve Drive Specialties MK3, MK4, and MK4i style modules in mind, but should be easily adaptable to other styles of modules.</br>
 As this is a fully featured iteration of the BaseFalconSwerve made for the purpose of practical application, we have implemented tools made by other members of the community including Advantagekit and Pathplanner.
 
@@ -59,4 +59,8 @@ These instructions are mostly followable from Step
 
 
 **Controller Mappings**
+Left Joystick: Translation
+Right Joystick: Heading control
+Right Bumper: Dampen movement
+Y Button: Zero robot heading
 ----
