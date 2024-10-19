@@ -158,12 +158,20 @@ gradle-app.setting
 .settings/
 bin/
 
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+
+# Fleet
+.fleet
+
 # Simulation GUI and other tools window save file
 networktables.json
 simgui.json
 *-window.json
-<<<<<<< Updated upstream
-=======
 
 # Simulation data log directory
 logs/
@@ -174,4 +182,3 @@ ctre_sim/
 # clangd
 /.cache
 compile_commands.json
->>>>>>> Stashed changes
