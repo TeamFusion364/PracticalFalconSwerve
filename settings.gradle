@@ -4,7 +4,11 @@ pluginManagement {
     repositories {
         mavenLocal()
         gradlePluginPortal()
+<<<<<<< Updated upstream
         String frcYear = '2023'
+=======
+        String frcYear = '2025'
+>>>>>>> Stashed changes
         File frcHome
         if (OperatingSystem.current().isWindows()) {
             String publicFolder = System.getenv('PUBLIC')

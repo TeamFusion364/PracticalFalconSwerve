@@ -7,7 +7,11 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+<<<<<<< Updated upstream
 import frc.lib.util.COTSFalconSwerveConstants;
+=======
+import frc.lib.util.COTSTalonFXSwerveConstants;
+>>>>>>> Stashed changes
 import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {

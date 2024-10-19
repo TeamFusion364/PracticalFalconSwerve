@@ -159,4 +159,19 @@ gradle-app.setting
 bin/
 
 # Simulation GUI and other tools window save file
+networktables.json
+simgui.json
 *-window.json
+<<<<<<< Updated upstream
+=======
+
+# Simulation data log directory
+logs/
+
+# Folder that has CTRE Phoenix Sim device config storage
+ctre_sim/
+
+# clangd
+/.cache
+compile_commands.json
+>>>>>>> Stashed changes
