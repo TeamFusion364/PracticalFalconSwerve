@@ -13,7 +13,7 @@ public class LazyCANCoder extends CANcoder {
      * @param allConfigs CTREConfig file
      */
     public LazyCANCoder(int deviceNumber, CANcoderConfiguration allConfigs){
-        super(deviceNumber, "canivore");
+        super(deviceNumber);
         super.getConfigurator().apply(allConfigs);
     }
 }
