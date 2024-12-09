@@ -10,8 +10,6 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import frc.lib.LazyCANCoder;
-import frc.lib.LazyTalonFX;
 import frc.lib.math.Conversions;
 import frc.lib.util.SwerveModuleConstants;
 
@@ -42,14 +40,20 @@ public class SwerveMod {
         this.angleOffset = moduleConstants.angleOffset;
         
         /* Angle Encoder Config */
-        angleEncoder = new LazyCANCoder(moduleConstants.cancoderID, ctreConfigs.swerveCANcoderConfig);
+        //angleEncoder = new LazyCANCoder(moduleConstants.cancoderID, ctreConfigs.swerveCANcoderConfig);
+        /* Angle Encoder Config */
+        angleEncoder = new CANcoder(moduleConstants.cancoderID);
+        angleEncoder.getConfigurator().apply(Robot.ctreConfigs.swerveCANcoderConfig);
 
         /* Angle Motor Config */
-        mAngleMotor = new LazyTalonFX(moduleConstants.angleMotorID, ctreConfigs.swerveAngleFXConfig, false);
+        mAngleMotor = new TalonFX(moduleConstants.angleMotorID);
+        mAngleMotor.getConfigurator().apply(Robot.ctreConfigs.swerveAngleFXConfig);
         resetToAbsolute();
 
         /* Drive Motor Config */
-        mDriveMotor = new LazyTalonFX(moduleConstants.driveMotorID, ctreConfigs.swerveDriveFXConfig, false);
+        mDriveMotor = new TalonFX(moduleConstants.driveMotorID);
+        mDriveMotor.getConfigurator().apply(Robot.ctreConfigs.swerveDriveFXConfig);
+        mDriveMotor.getConfigurator().setPosition(0.0);
     }
 
     public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop){
