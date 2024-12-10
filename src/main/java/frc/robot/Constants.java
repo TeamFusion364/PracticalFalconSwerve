@@ -150,9 +150,11 @@ public final class Constants {
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
 
+        //TODO: Must be tuned to specific robot
         public static final PIDConstants translationPID = new PIDConstants(0, 0, 0);
         public static final PIDConstants rotationPID = new PIDConstants(0, 0, 0);
 
+        //TODO: Must be tuned to specific robot
         public static final double ROBOT_MASS_KG = 74.088;
         public static final double ROBOT_MOI = 6.883;
         public static final double WHEEL_COF = 1.2;
@@ -162,12 +164,8 @@ public final class Constants {
                 (Constants.Swerve.maxSpeed),
                 Constants.AutoConstants.WHEEL_COF,
                 DCMotor.getKrakenX60(1).withReduction(Constants.Swerve.chosenModule.driveGearRatio),
-              40,
+              Constants.Swerve.driveCurrentThreshold,
               1);
-    
-        public static final double kPXController = 1;
-        public static final double kPYController = 1;
-        public static final double kPThetaController = 1;
     
         /* Constraint for the motion profilied robot angle controller */
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =

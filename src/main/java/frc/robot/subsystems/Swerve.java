@@ -40,7 +40,7 @@ public class Swerve extends SubsystemBase {
     public Swerve(PoseEstimator s_PoseEstimator) {
         this.s_PoseEstimator = s_PoseEstimator;
 
-        config =new RobotConfig(
+        config = new RobotConfig(
           Constants.AutoConstants.ROBOT_MASS_KG,
           Constants.AutoConstants.ROBOT_MOI,
           Constants.AutoConstants.moduleConfig,

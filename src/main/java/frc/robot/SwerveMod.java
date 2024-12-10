@@ -14,7 +14,7 @@ import frc.lib.math.Conversions;
 import frc.lib.util.SwerveModuleConstants;
 
 public class SwerveMod {
-    private CTREConfigs ctreConfigs;
+    private HardwareConfigs hardwareConfigs;
 
     public int moduleNumber;
     private Rotation2d angleOffset;
@@ -34,23 +34,23 @@ public class SwerveMod {
     private final PositionVoltage anglePosition = new PositionVoltage(0);
 
     public SwerveMod(int moduleNumber, SwerveModuleConstants moduleConstants){
-        this.ctreConfigs = Robot.ctreConfigs;
+        this.hardwareConfigs = Robot.hardwareConfigs;
 
         this.moduleNumber = moduleNumber;
         this.angleOffset = moduleConstants.angleOffset;
         
         /* Angle Encoder Config */
         angleEncoder = new CANcoder(moduleConstants.cancoderID, Constants.Swerve.canbus);
-        angleEncoder.getConfigurator().apply(Robot.ctreConfigs.swerveCANcoderConfig);
+        angleEncoder.getConfigurator().apply(Robot.hardwareConfigs.swerveCANcoderConfig);
 
         /* Angle Motor Config */
         mAngleMotor = new TalonFX(moduleConstants.angleMotorID, Constants.Swerve.canbus);
-        mAngleMotor.getConfigurator().apply(Robot.ctreConfigs.swerveAngleFXConfig);
+        mAngleMotor.getConfigurator().apply(Robot.hardwareConfigs.swerveAngleFXConfig);
         resetToAbsolute();
 
         /* Drive Motor Config */
         mDriveMotor = new TalonFX(moduleConstants.driveMotorID, Constants.Swerve.canbus);
-        mDriveMotor.getConfigurator().apply(Robot.ctreConfigs.swerveDriveFXConfig);
+        mDriveMotor.getConfigurator().apply(Robot.hardwareConfigs.swerveDriveFXConfig);
         mDriveMotor.getConfigurator().setPosition(0.0);
     }
 
