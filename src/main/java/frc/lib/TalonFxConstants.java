@@ -5,28 +5,36 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 /**
- * Organizes the various major CTREConfigs of a TalonFX motor for easier and bloatless initialization through LazyTalonFX
+ * Organizes the various major CTREConfigs of a TalonFX motor for easier and bloatless
+ * initialization through LazyTalonFX
  */
 public class TalonFxConstants {
-    public final int deviceNumber;
-    public final TalonFXConfiguration allConfigs;
-    public final NeutralModeValue neutralModeVal;
-    public final InvertedValue invertTypeVal;
-    public final boolean slowStatusFrame;    
-    
-    /**
-     * Constants to be used with LazyTalonFX Util
-     * @param deviceNumber
-     * @param allConfigs
-     * @param neutralModeVal
-     * @param invertTypeVal
-     * @param slowStatusFrame
-     */
-    public TalonFxConstants(int deviceNumber, TalonFXConfiguration allConfigs, NeutralModeValue neutralModeVal, InvertedValue invertTypeVal, boolean slowStatusFrame) {
-        this.deviceNumber = deviceNumber;
-        this.allConfigs = allConfigs;
-        this.neutralModeVal = neutralModeVal;
-        this.invertTypeVal = invertTypeVal;
-        this.slowStatusFrame = slowStatusFrame;
-    }
+  public final int deviceNumber;
+  public final TalonFXConfiguration allConfigs;
+  public final NeutralModeValue neutralModeVal;
+  public final InvertedValue invertTypeVal;
+  public final boolean slowStatusFrame;
+
+  /**
+   * Constants to be used with LazyTalonFX Util
+   *
+   * @param deviceNumber
+   * @param allConfigs
+   * @param neutralModeVal
+   * @param invertTypeVal
+   * @param slowStatusFrame
+   * @deprecated
+   */
+  public TalonFxConstants(
+      int deviceNumber,
+      TalonFXConfiguration allConfigs,
+      NeutralModeValue neutralModeVal,
+      InvertedValue invertTypeVal,
+      boolean slowStatusFrame) {
+    this.deviceNumber = deviceNumber;
+    this.allConfigs = allConfigs;
+    this.neutralModeVal = neutralModeVal;
+    this.invertTypeVal = invertTypeVal;
+    this.slowStatusFrame = slowStatusFrame;
+  }
 }

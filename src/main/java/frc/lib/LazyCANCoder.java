@@ -3,17 +3,17 @@ package frc.lib;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
 
-/**
- * Thin CANCoder wrapper to make setup easier.
- */
+/** Thin CANCoder wrapper to make setup easier. */
 public class LazyCANCoder extends CANcoder {
-    /**
-     * Thin CANCoder wrapper to make setup easier.
-     * @param deviceNumber
-     * @param allConfigs CTREConfig file
-     */
-    public LazyCANCoder(int deviceNumber, CANcoderConfiguration allConfigs){
-        super(deviceNumber);
-        super.getConfigurator().apply(allConfigs);
-    }
+  /**
+   * Thin CANCoder wrapper to make setup easier.
+   *
+   * @param deviceNumber
+   * @param allConfigs CTREConfig file
+   * @deprecated
+   */
+  public LazyCANCoder(int deviceNumber, CANcoderConfiguration allConfigs) {
+    super(deviceNumber);
+    super.getConfigurator().apply(allConfigs);
+  }
 }
