@@ -3,6 +3,8 @@ package frc.robot;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
+import com.pathplanner.lib.config.ModuleConfig;
+import com.pathplanner.lib.config.PIDConstants;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
@@ -11,6 +13,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import frc.lib.util.COTSTalonFXSwerveConstants;
@@ -21,6 +24,7 @@ public final class Constants {
     public static final class Swerve {
         public static final int pigeonID = 0;
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
+        public static final String canbus = "rio"; //Can be either "rio" or "canivore"
 
         public static final COTSTalonFXSwerveConstants chosenModule =  //TODO: This must be tuned to specific robot
         COTSTalonFXSwerveConstants.SDS.MK4i.Falcon500(COTSTalonFXSwerveConstants.SDS.MK4i.driveRatios.L2);
@@ -145,6 +149,21 @@ public final class Constants {
         public static final double kMaxAccelerationMetersPerSecondSquared = 3;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
+
+        public static final PIDConstants translationPID = new PIDConstants(0, 0, 0);
+        public static final PIDConstants rotationPID = new PIDConstants(0, 0, 0);
+
+        public static final double ROBOT_MASS_KG = 74.088;
+        public static final double ROBOT_MOI = 6.883;
+        public static final double WHEEL_COF = 1.2;
+
+        public static final ModuleConfig moduleConfig = new ModuleConfig(
+                (Constants.Swerve.chosenModule.wheelDiameter / 2),
+                (Constants.Swerve.maxSpeed),
+                Constants.AutoConstants.WHEEL_COF,
+                DCMotor.getKrakenX60(1).withReduction(Constants.Swerve.chosenModule.driveGearRatio),
+              40,
+              1);
     
         public static final double kPXController = 1;
         public static final double kPYController = 1;

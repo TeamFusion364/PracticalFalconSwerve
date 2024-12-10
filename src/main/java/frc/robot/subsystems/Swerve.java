@@ -40,14 +40,13 @@ public class Swerve extends SubsystemBase {
     public Swerve(PoseEstimator s_PoseEstimator) {
         this.s_PoseEstimator = s_PoseEstimator;
 
-        try{
-          config = RobotConfig.fromGUISettings();
-        } catch (Exception e) {
-          // Handle exception as needed
-          e.printStackTrace();
-        }
+        config =new RobotConfig(
+          Constants.AutoConstants.ROBOT_MASS_KG,
+          Constants.AutoConstants.ROBOT_MOI,
+          Constants.AutoConstants.moduleConfig,
+          Constants.Swerve.trackWidth);
 
-        gyro = new Pigeon2(Constants.Swerve.pigeonID, "canivore");
+        gyro = new Pigeon2(Constants.Swerve.pigeonID, Constants.Swerve.canbus);
         gyro.getConfigurator().apply(new Pigeon2Configuration());
         gyro.setYaw(0);
 
@@ -68,9 +67,7 @@ public class Swerve extends SubsystemBase {
             this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
             (speeds, feedforwards) -> driveRobotRelative(speeds), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
             new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller for holonomic drive trains
-                    new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
-                    new PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
-            ),
+            Constants.AutoConstants.translationPID, Constants.AutoConstants.rotationPID), // Translation/Rotation PID constants
             config, // The robot configuration
             () -> {
               // Boolean supplier that controls when the path will be mirrored for the red alliance
